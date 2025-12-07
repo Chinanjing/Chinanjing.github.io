@@ -35,6 +35,21 @@
             color: #fff;
             margin-bottom: 2rem;
         }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+
+        .category-tag {
+            padding: 0.3em 0.6em;
+            font-size: 85%;
+            font-weight: 600;
+            border-radius: 0.375rem;
+            color: #212529; /* Dark text for better contrast on light backgrounds */
+            display: inline-block;
+            text-align: center;
+        }
         .table-dark {
             --bs-table-bg: transparent;
             --bs-table-striped-bg: rgba(255, 255, 255, 0.05);
@@ -70,13 +85,13 @@
     <table id="commandsTable" class="table table-dark table-striped table-hover" style="width:100%">
         <thead>
             <tr>
-                <th style="width:5%;">ID</th>
-                <th style="width:10%;">类别</th>
-                <th style="width:15%;">描述1</th>
-                <th style="width:15%;">描述2</th>
-                <th style="width:30%;">命令</th>
-                <th style="width:15%;">备注</th>
-                <th style="width:10%;">操作</th>
+                <th style="width: 5%;">ID</th>
+                <th style="width: 8%;">类别</th>
+                <th style="width: 12%;">描述1</th>
+                <th style="width: 12%;">描述2</th>
+                <th style="width: 38%;">命令</th>
+                <th style="width: 15%;">备注</th>
+                <th style="width: 10%;">操作</th>
             </tr>
         </thead>
         <tbody>
@@ -101,7 +116,25 @@ $(document).ready(function() {
         },
         "columns": [
             { "data": "id" },
-            { "data": "category" },
+            {
+                "data": "category",
+                "render": function(data, type, row) {
+                    const colorMap = {
+                        'scp': '#a2d2ff',
+                        'can': '#e0aaff',
+                        'log': '#c8e6c9',
+                        'mysql': '#fff3b0',
+                        'cmd': '#ffcdd2',
+                        'shell': '#bde0fe',
+                        '物联网': '#ffdfb3',
+                        'python': '#b2f7d2',
+                        'git': '#f8bbd0',
+                        'kernel': '#cfd8dc'
+                    };
+                    const color = colorMap[data] || '#cfd8dc'; // Default color
+                    return `<span class="category-tag" style="background-color: ${color};">${data}</span>`;
+                }
+            },
             { "data": "description1", "defaultContent": "<i>N/A</i>" },
             { "data": "description2", "defaultContent": "<i>N/A</i>" },
             { "data": "command" },
@@ -140,7 +173,8 @@ $(document).ready(function() {
         "searching": true,
         "responsive": true,
         "columnDefs": [
-            { "className": "dt-center", "targets": [0, 6] }
+            { "className": "dt-center", "targets": [0, 6] },
+            { "className": "text-nowrap", "targets": [0, 1, 2, 3] }
         ],
         "dom": '<"row"<"col-sm-12"f>><"row"<"col-sm-12"tr>><"row mt-3"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7 d-flex justify-content-end align-items-center"lp>>',
     });
