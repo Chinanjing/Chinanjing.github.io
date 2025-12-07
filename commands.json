@@ -14,5 +14,413 @@
         "description2": "上传文件",
         "command": "scp root@106.14.139.145:\/root\/yn\/smec smec_a",
         "comments": "将阿里云106.14.139.145:\/root\/yn\/smec复制到当前位置并重命名为smec_a"
+    },
+    {
+        "id": 3,
+        "category": "scp",
+        "description1": null,
+        "description2": "下载文件",
+        "command": "scp log.tar.gz root@106.14.139.145:\/root\/yn\/",
+        "comments": "将当前位置的log.tar.gz复制到阿里云106.14.139.145:\/root\/yn\/"
+    },
+    {
+        "id": 4,
+        "category": "scp",
+        "description1": null,
+        "description2": "监控室smec复制到控制柜\/usr\/sbin",
+        "command": "scp smec {ip}:\/usr\/sbin\/smec_a",
+        "comments": "将监控室装置当前位置的smec复制到控制柜装置\/usr\/sbin\/下并重命名为smec_a"
+    },
+    {
+        "id": 5,
+        "category": "scp",
+        "description1": null,
+        "description2": "监控室后台替换控制柜smec",
+        "command": "scp smec {ip}:\/usr\/sbin\/smec_a; ssh root@{ip} \"mv \/usr\/sbin\/smec \/usr\/sbin\/smec_bak; busybox killall smec; mv \/usr\/sbin\/smec_a \/usr\/sbin\/smec; chmod 777 \/usr\/sbin\/smec\"",
+        "comments": "监控室装置后台实现控制柜装置smec的备份、复制和重启"
+    },
+    {
+        "id": 6,
+        "category": "can",
+        "description1": null,
+        "description2": "can0信息",
+        "command": "ip -details link show can0",
+        "comments": "网络接口can0的详细信息"
+    },
+    {
+        "id": 7,
+        "category": "log",
+        "description1": "监控室日志",
+        "description2": "DTU日志打印级别",
+        "command": "busybox who -H; \/home\/remes\/bin\/js_print_2_17; 26305 0 5",
+        "comments": "当前终端号执行busybox who -H后PS左侧值，端口号26305，打印等级默认4"
+    },
+    {
+        "id": 8,
+        "category": "log",
+        "description1": "控制柜日志",
+        "description2": "COMM日志打印级别",
+        "command": "\/usr\/bin\/js_print_2_5; 26210 1 5",
+        "comments": "端口号26210，打印等级默认4"
+    },
+    {
+        "id": 9,
+        "category": "mysql",
+        "description1": "监控室数据库",
+        "description2": "登录",
+        "command": "\/usr\/local\/mysql-arm\/bin\/mysql -u root -p8",
+        "comments": "监控室装置MySQL数据库root用户密码为8"
+    },
+    {
+        "id": 10,
+        "category": "mysql",
+        "description1": "监控室数据库",
+        "description2": "查询",
+        "command": "select dt_num, ele_id, cId_ele_id_iot, kzg_id, kzg_ip, kzg_cpdId from digtel.digtel_relevance order by dt_num;",
+        "comments": "在数据库digtel表digtel_relevance中查询装置和合同号信息"
+    },
+    {
+        "id": 11,
+        "category": "mysql",
+        "description1": "监控室数据库",
+        "description2": "工作目录",
+        "command": "select @@datadir;",
+        "comments": "查询监控室装置数据库所在位置"
+    },
+    {
+        "id": 12,
+        "category": "mysql",
+        "description1": "监控室数据库",
+        "description2": "工作目录",
+        "command": "show global variables like \"%datadir%\"",
+        "comments": "查询监控室装置数据库所在位置"
+    },
+    {
+        "id": 13,
+        "category": "mysql",
+        "description1": "监控室数据库",
+        "description2": "更新",
+        "command": "update {table} set {item} = {value} where id = {id};",
+        "comments": "更新表名为table中索引为id字段名为item的值为value"
+    },
+    {
+        "id": 14,
+        "category": "mysql",
+        "description1": "监控室数据库",
+        "description2": "删除",
+        "command": "delete from {table} where id = {id};",
+        "comments": "删除表名为table索引为id的记录"
+    },
+    {
+        "id": 15,
+        "category": "mysql",
+        "description1": "监控室数据库",
+        "description2": "导出",
+        "command": "select dt_num, ele_id, cId_ele_id_iot, kzg_id, kzg_ip, kzg_cpdId from digtel.digtel_relevance where into outfile \"digtel_ele_db\"",
+        "comments": "将数据库digtel表digtel_relevance中装置和合同号信息导出到digtel_ele_db文件"
+    },
+    {
+        "id": 16,
+        "category": "mysql",
+        "description1": null,
+        "description2": "记录后移",
+        "command": "UPDATE {table} SET id = id + {n} WHERE id >= {num} ORDER BY id DESC;",
+        "comments": "表名为table的记录从num开始往后移动n位"
+    },
+    {
+        "id": 17,
+        "category": "cmd",
+        "description1": "Windows",
+        "description2": "扫描IP",
+        "command": "for \/L %i in (1, 1, 255) do ping 192.168.1.%i -l 1024 -n 1 -w 500 >> scan.txt",
+        "comments": "Windows扫描192.168.1~255网段内的IP地址并保存在scan.txt中"
+    },
+    {
+        "id": 18,
+        "category": "shell",
+        "description1": "Linux\/Unix",
+        "description2": "扫描IP",
+        "command": "for i in `busybox seq 1 1 255`; do ping 192.168.1.$i -w 3 >> scan.txt; done",
+        "comments": "Linux\/Unix扫描192.168.1~255网段内的IP地址并保存在scan.txt中"
+    },
+    {
+        "id": 19,
+        "category": "shell",
+        "description1": "Linux\/Unix",
+        "description2": "修改程序优先级",
+        "command": "nice -n -10 your_program &",
+        "comments": "将可执行文件your_program的优先级设置为-10并置于后台运行，-20(最高)~0(默认)~19(最低)"
+    },
+    {
+        "id": 20,
+        "category": "shell",
+        "description1": "Linux\/Unix",
+        "description2": "压缩文件",
+        "command": "tar -czvf log.tar.gz diglink.log*",
+        "comments": "将当前位置的所有diglink.log及其开头的文件压缩成log.tar.gz"
+    },
+    {
+        "id": 21,
+        "category": "shell",
+        "description1": "Linux\/Unix",
+        "description2": "压缩文件",
+        "command": "tar -czvf \/root\/log.tar.gz -C \/dev\/shm\/ diglink.log*",
+        "comments": "将\/dev\/shm\/目录下所有diglink.log及其开头的文件压缩到\/root\/目录并以log.tar.gz命名；该方式可使压缩文件log.tar.gz不带目录名\/dev\/shm，仅包含文件名"
+    },
+    {
+        "id": 22,
+        "category": "shell",
+        "description1": "Linux\/Unix",
+        "description2": "解压文件",
+        "command": "tar -zxvf log.tar.gz",
+        "comments": "将log.tar.gz解压到当前位置"
+    },
+    {
+        "id": 23,
+        "category": "shell",
+        "description1": "Linux\/Unix",
+        "description2": "共享目录",
+        "command": "sudo mount -t fuse.vmhgfs-fuse .host:\/ \/home\/kali\/ -o allow_other",
+        "comments": "将虚拟机中的目录\/home\/kali挂载并共享"
+    },
+    {
+        "id": 24,
+        "category": "物联网",
+        "description1": null,
+        "description2": "IoT平台",
+        "command": "https:\/\/iot.console.aliyun.com\/lk\/vpc\/instance\/detail_s",
+        "comments": "IoT平台登陆网址"
+    },
+    {
+        "id": 25,
+        "category": "物联网",
+        "description1": null,
+        "description2": "OpenAPI平台",
+        "command": "https:\/\/next.api.aliyun.com\/api\/Iot\/",
+        "comments": "OpenAPI平台登陆网址"
+    },
+    {
+        "id": 26,
+        "category": "物联网",
+        "description1": "DEV",
+        "description2": "DEV_GW product_key",
+        "command": "g4xd0Aps0uy",
+        "comments": "DEV环境网关设备product_key"
+    },
+    {
+        "id": 27,
+        "category": "物联网",
+        "description1": "DEV",
+        "description2": "DEV_GW product_secret",
+        "command": "uRvhD8TlDO7yOTJg",
+        "comments": "DEV环境网关设备product_secret"
+    },
+    {
+        "id": 28,
+        "category": "物联网",
+        "description1": "DEV",
+        "description2": "DEV_CPD product_key",
+        "command": "g4xdTWsU988",
+        "comments": "DEV环境子设备product_key"
+    },
+    {
+        "id": 29,
+        "category": "物联网",
+        "description1": "DEV",
+        "description2": "DEV_CPD product_secret",
+        "command": "Pm9pHzMfz7VfGS4Y",
+        "comments": "DEV环境子设备product_secret"
+    },
+    {
+        "id": 30,
+        "category": "物联网",
+        "description1": "TEST",
+        "description2": "TEST_GW product_key",
+        "command": "g4xdWK6PWeG",
+        "comments": "TEST环境网关设备product_key"
+    },
+    {
+        "id": 31,
+        "category": "物联网",
+        "description1": "TEST",
+        "description2": "TEST_GW product_secret",
+        "command": "Fd26SoqwfSvCBR0u",
+        "comments": "TEST环境网关设备product_secret"
+    },
+    {
+        "id": 32,
+        "category": "物联网",
+        "description1": "TEST",
+        "description2": "TEST_CPD product_key",
+        "command": "g4xdLaWW5eq",
+        "comments": "TEST环境子设备product_key"
+    },
+    {
+        "id": 33,
+        "category": "物联网",
+        "description1": "TEST",
+        "description2": "TEST_CPD product_secret",
+        "command": "ti4z3MsQg35Sx72n",
+        "comments": "TEST环境子设备product_secret"
+    },
+    {
+        "id": 34,
+        "category": "物联网",
+        "description1": "SMEC",
+        "description2": "SMEC_GW product_key",
+        "command": "g4xdEqa2CfX",
+        "comments": "SMEC环境网关设备product_key"
+    },
+    {
+        "id": 35,
+        "category": "物联网",
+        "description1": "SMEC",
+        "description2": "SMEC_GW product_secret",
+        "command": "UtATNPRcELOdXAGx",
+        "comments": "SMEC环境网关设备product_secret"
+    },
+    {
+        "id": 36,
+        "category": "物联网",
+        "description1": "SMEC",
+        "description2": "SMEC_CPD product_key",
+        "command": "g4xdsqZciZ0",
+        "comments": "SMEC环境子设备product_key"
+    },
+    {
+        "id": 37,
+        "category": "物联网",
+        "description1": "SMEC",
+        "description2": "SMEC_CPD product_secret",
+        "command": "6PHjulAdvFD0u7HU",
+        "comments": "SMEC环境子设备product_secret"
+    },
+    {
+        "id": 38,
+        "category": "python",
+        "description1": "人脸识别小程序",
+        "description2": "Eric-6",
+        "command": "python -m pip install eric-ide==21.9 pyqt5-tools==5.15.1.3.2 -i https:\/\/pypi.tuna.tsinghua.edu.cn\/simple",
+        "comments": "安装Eric"
+    },
+    {
+        "id": 39,
+        "category": "python",
+        "description1": "PyTorch",
+        "description2": "CPU版本",
+        "command": "conda install python=3.7 pyzmq=19.0.2 jupyter notebook pandas matplotlib -n myenv",
+        "comments": "PyTorch版本和PyThon版本有对应关系"
+    },
+    {
+        "id": 40,
+        "category": "python",
+        "description1": "PyTorch",
+        "description2": "GPU版本",
+        "command": "conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia",
+        "comments": "GPU支持版本PyTorch"
+    },
+    {
+        "id": 41,
+        "category": "python",
+        "description1": "TensorFlow",
+        "description2": "GPU版本",
+        "command": "python -m pip install librosa==0.8.0 tensorflow-gpu==2.5.0 -i https:\/\/pypi.tuna.tsinghua.edu.cn\/simple",
+        "comments": "GPU支持版本TensorFlow"
+    },
+    {
+        "id": 42,
+        "category": "python",
+        "description1": "Matplotlib",
+        "description2": "创建子图",
+        "command": "fig, ax = plt.subplots(nrows=2, ncols=3, figsize=(10, 5))",
+        "comments": "创建2行×3列，6个子图"
+    },
+    {
+        "id": 43,
+        "category": "python",
+        "description1": "Matplotlib",
+        "description2": "旋转x轴刻度标签",
+        "command": "plt.xticks(rotation=30)",
+        "comments": "x轴刻度标签顺时针旋转30度"
+    },
+    {
+        "id": 44,
+        "category": "python",
+        "description1": "Matplotlib",
+        "description2": "旋转x轴刻度标签",
+        "command": "fig.autofmt_xdate(rotation=60)",
+        "comments": "x轴刻度标签顺时针旋转60度"
+    },
+    {
+        "id": 45,
+        "category": "python",
+        "description1": "Matplotlib",
+        "description2": "旋转x轴刻度标签",
+        "command": "ax.set_xticklabels(xlabels, rotation=90)",
+        "comments": "x轴刻度标签顺时针旋转90度"
+    },
+    {
+        "id": 46,
+        "category": "python",
+        "description1": "Matplotlib",
+        "description2": "调整x轴刻度间隔",
+        "command": "ax.xaxis.set_major_locator(ticker.MultipleLocator(10))",
+        "comments": "调整x轴刻度疏密程度"
+    },
+    {
+        "id": 47,
+        "category": "python",
+        "description1": "打包",
+        "description2": "打包成.whl文件",
+        "command": "python setup.py bdist_wheel",
+        "comments": "将Python工程打包成.whl文件"
+    },
+    {
+        "id": 48,
+        "category": "git",
+        "description1": null,
+        "description2": "历史记录",
+        "command": "git reflog",
+        "comments": "概要历史记录"
+    },
+    {
+        "id": 49,
+        "category": "git",
+        "description1": null,
+        "description2": "历史记录",
+        "command": "git log",
+        "comments": "详细历史记录"
+    },
+    {
+        "id": 50,
+        "category": "git",
+        "description1": null,
+        "description2": "撤回本地最近一次提交",
+        "command": "git reset --soft HEAD^",
+        "comments": "回退本地记录至前一条记录，不影响代码"
+    },
+    {
+        "id": 51,
+        "category": "git",
+        "description1": null,
+        "description2": "重置到ID对应记录",
+        "command": "git reset --hard ID",
+        "comments": "将本地仓库重置到ID对应的记录"
+    },
+    {
+        "id": 52,
+        "category": "git",
+        "description1": null,
+        "description2": "git增加ssh访问权限",
+        "command": "ssh-keygen -t ed25519 -C \"1030687899@qq.com\"",
+        "comments": "git增加ssh代理访问权限，公钥在云，私钥在本地"
+    },
+    {
+        "id": 53,
+        "category": "kernel",
+        "description1": "ERMD-III",
+        "description2": "内核烧录",
+        "command": ".\/flash_eraseall \/dev\/mtd2 && busybox nandwrite -p \/dev\/mtd2 -p",
+        "comments": "flash_eraseall可执行文件用于Flash内存擦除"
     }
 ]
