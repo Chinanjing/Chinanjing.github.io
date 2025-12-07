@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "category": "scp",
+        "description1": null,
+        "description2": "密码",
+        "command": "123456",
+        "comments": "阿里云106.14.139.145服务器root密码"
+    },
+    {
+        "id": 2,
+        "category": "scp",
+        "description1": null,
+        "description2": "上传文件",
+        "command": "scp root@106.14.139.145:\/root\/yn\/smec smec_a",
+        "comments": "将阿里云106.14.139.145:\/root\/yn\/smec复制到当前位置并重命名为smec_a"
+    }
+]
